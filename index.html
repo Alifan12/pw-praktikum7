@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="picture.png">
+  <title>Provinsi|Kota di Indonesia</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script type="text/javascript">
+    var stateObject = {
+    "DKI Jakarta": ["Jakarta Pusat","Jakarta Timur","Jakarta Selatan","jakarta Barat","Jakarta Utara"],
+    "Jawa Tengah": ["Rembang","Pati","Kudus","Demak","Magelang","Semarang","Kendal","Batang","Pekalongan","Pemalang","Tegal","Brebes"],
+    "Jawa Barat": ["Bandung","Bekasi","Bogor","Cimahi","Cirebon","Depok","Sukabumi","Tasikmalaya","Banjar"],
+    "Jawa Timur": ["Batu","Blitar","Kediri","Madiun","Malang","Mojokerto","Pasuruan","Probolinggo","Surabaya"],
+    }
+    window.onload = function () {
+    var provinsiSel = document.getElementById("countySel")
+    var kotaSel = document.getElementById("stateSel")
+    var headingText = document.getElementById("heading-text")
+
+    for (var provinsi in stateObject) {
+        provinsiSel.options[provinsiSel.options.length] = new Option(provinsi, provinsi);
+    }
+    
+    provinsiSel.onchange = function () {
+    kotaSel.length = 1; 
+    if (this.selectedIndex < 1) return;
+    
+    var kota = stateObject[provinsiSel.value];
+    for (var i = 0; i < kota.length; i++) {
+        kotaSel.options[kotaSel.options.length] = new Option(kota[i], kota[i]);
+    }
+    
+    kotaSel.onchange = function () {
+        headingText.innerHTML = "Pada provinsi " + provinsiSel.value + " terdapat kota " + kotaSel.value;
+    }
+    }
+    }
+
+    function changeMode() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+    }
+  </script>
+</head>
+<body class="bg-image">
+  <h1>Daftar Nama Provinsi dan Kota di Indonesia</h1>
+    <form name="myform" id="myForm">
+        <span class="dropdown">
+            <select class="mySelect" name="provinsi" id="countySel" size="1">
+                <option value="" selected="selected">Pilih Provinsi</option>
+            </select>
+            <br>
+            <br>
+        </span>
+        <span class="dropdown">
+            <select class="mySelect" name="kota" id="stateSel" size="1">
+                <option value="" selected="selected">Pilih Kota/Kabupaten</option>
+            </select>
+            <br>
+            <br>
+        </span>
+        <closeform></closeform>
+    </form>
+    <div class="heading">
+        <h2>Heading Text</h2>
+        <div id="heading-text"></div>
+    </div>
+    <button onclick="changeMode()">Change</button>
+</body>
+</html>
